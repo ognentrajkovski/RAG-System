@@ -6,7 +6,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.schema.document import Document
 from embedding_function import get_embedding_function
 from langchain_chroma import Chroma
-from transformers import AutoTokenizer
+import tiktoken
 
 
 CHROMA_PATH = "chroma"
@@ -30,7 +30,7 @@ def load_documents():
     document_loader = PyPDFDirectoryLoader(DATA_PATH)
     return document_loader.load()
 
-tokenizer = AutoTokenizer.from_pretrained("gpt2")
+tokenizer = tiktoken.get_encoding("cl100k_base")
 
 def split_documents(documents):
     text_splitter = RecursiveCharacterTextSplitter(
